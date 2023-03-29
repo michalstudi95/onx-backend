@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
@@ -13,7 +14,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        return Client::all();
     }
 
     /**
@@ -29,7 +30,7 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
-        //
+        return Client::create($request->all());
     }
 
     /**
