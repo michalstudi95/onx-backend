@@ -54,7 +54,7 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
-        //
+        return $client->update($request->all());
     }
 
     /**
