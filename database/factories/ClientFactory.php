@@ -16,8 +16,20 @@ class ClientFactory extends Factory
      */
     public function definition(): array
     {
+
+        $clientTypes = ['individual','company'];
+        $clientType = $this->faker->randomElement($clientTypes);
+
         return [
-            //
-        ];
+            'client_type' => $clientType ,
+            'company_name' => $clientType == 'company' ? $this->faker->company() : null,
+            'nip' => $clientType == 'company' ? $this->faker->regexify('[0-9]{10}') : null,
+            'first_name' => $clientType == 'individual' ? $this->faker->firstName(): null,
+            'last_name' => $clientType == 'individual' ? $this->faker->lastName() : null,
+            'phone' =>  $this->faker->phoneNumber(),
+            'email' =>  $this->faker->safeEmail(),
+            'address' =>  $this->faker->address(),
+            'employee_id' => null
+        ]; 
     }
 }
