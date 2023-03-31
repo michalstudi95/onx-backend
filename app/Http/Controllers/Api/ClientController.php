@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use Illuminate\Pagination\Paginator;
 
 class ClientController extends Controller
 {
@@ -14,7 +15,22 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return Client::all();
+        $clientType = request('type');
+        $page = intval(request('page'));
+        $perPage = intval(request('perPage')) != 0 ? intval(request('perPage')) : 5;
+
+
+        if($clientType == 'individual')
+        {
+         return Client::where('client_type','individual')->paginate($perPage,['*'],'page',$page);
+        }
+        else if($clientType == 'company') 
+        {
+            return Client::where('client_type','company')->paginate($perPage,['*'],'page',$page);
+        } 
+        else if($clientType == 'all') {
+            return Client::paginate($perPage,['*'],'page',$page);
+        }
     }
 
     /**
@@ -62,6 +78,6 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        return Client::destroy($client->id);
     }
 }
