@@ -19,18 +19,26 @@ class ClientController extends Controller
         $page = intval(request('page'));
         $sort = request('sort');
 
-        if($clientType == 'individual')
+        if($clientType && $sort && $page) {
+            //e.g api/clients?type=all&sort=asc&page=1
+            if($clientType == 'individual')
+            {
+            return Client::where('client_type','individual')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
+            }
+            else if($clientType == 'company') 
+            {
+                return Client::where('client_type','company')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
+            } 
+            else  {
+                //$clientType is equal all
+                return Client::orderBy('id',$sort)->paginate(5,['*'],'page',$page);
+            } 
+        } 
+        else
         {
-         return Client::where('client_type','individual')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
+            //e.g api/clients
+            return Client::all();
         }
-        else if($clientType == 'company') 
-        {
-            return Client::where('client_type','company')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
-        } 
-        else  {
-            //$clientType is equal all
-            return Client::orderBy('id',$sort)->paginate(5,['*'],'page',$page);
-        } 
     }
 
     /**
