@@ -17,20 +17,20 @@ class ClientController extends Controller
     {
         $clientType = request('type');
         $page = intval(request('page'));
-        $perPage = intval(request('perPage')) != 0 ? intval(request('perPage')) : 5;
-
+        $sort = request('sort');
 
         if($clientType == 'individual')
         {
-         return Client::where('client_type','individual')->paginate($perPage,['*'],'page',$page);
+         return Client::where('client_type','individual')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
         }
         else if($clientType == 'company') 
         {
-            return Client::where('client_type','company')->paginate($perPage,['*'],'page',$page);
+            return Client::where('client_type','company')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
         } 
-        else if($clientType == 'all') {
-            return Client::paginate($perPage,['*'],'page',$page);
-        }
+        else  {
+            //$clientType is equal all
+            return Client::orderBy('id',$sort)->paginate(5,['*'],'page',$page);
+        } 
     }
 
     /**
@@ -80,4 +80,6 @@ class ClientController extends Controller
     {
         return Client::destroy($client->id);
     }
+
+
 }
