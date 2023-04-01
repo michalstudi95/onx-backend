@@ -29,7 +29,6 @@ class ClientFactory extends Factory
             'phone' =>  $this->faker->phoneNumber(),
             'email' =>  $this->faker->safeEmail(),
             'address' =>  $this->faker->address(),
-            'employee_id' => null
         ]; 
     }
 }

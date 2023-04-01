@@ -2,19 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Car;
-use App\Models\Client;
-use App\Models\Employee;
+use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class EmployeeSeeder extends Seeder
+class ProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Employee::factory()->hasCar()->count(5)->create();
+        Product::factory()->count(10)->create();
     }
 }
