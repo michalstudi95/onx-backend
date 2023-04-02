@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
-use Illuminate\Pagination\Paginator;
 
 class ClientController extends Controller
 {
@@ -23,21 +22,21 @@ class ClientController extends Controller
             //e.g api/clients?type=all&sort=asc&page=1
             if($clientType == 'individual')
             {
-            return Client::where('client_type','individual')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
+            return Client::with('employee')->where('client_type','individual')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
             }
             else if($clientType == 'company') 
             {
-                return Client::where('client_type','company')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
+                return Client::with('employee')->where('client_type','company')->orderBy("id",$sort)->paginate(5,['*'],'page',$page);
             } 
             else  {
                 //$clientType is equal all
-                return Client::orderBy('id',$sort)->paginate(5,['*'],'page',$page);
+                return Client::with('employee')->orderBy('id',$sort)->paginate(5,['*'],'page',$page);
             } 
         } 
         else
         {
             //e.g api/clients
-            return Client::all();
+            return Client::with('employee')->get();
         }
     }
 

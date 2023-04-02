@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -13,11 +14,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $clientId = request('client');
+        return Product::where('client_id',$clientId)->with('client')->get();
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource.`
      */
     public function create()
     {

@@ -14,11 +14,6 @@ class ClientSeeder extends Seeder
      */
     public function run(): void
     {
-        Client::factory()->hasEmployee()->count(1)->create();
-        Client::factory()->hasProducts(5)->count(1)->create();
-        Client::factory()->hasProducts(4)->count(2)->create();
-        Client::factory()->hasProducts(3)->count(3)->create();
-        Client::factory()->hasProducts(2)->count(4)->create();
-        Client::factory()->hasProducts(1)->count(5)->create();
+        Client::factory()->count(35)->create();
     }
 }
