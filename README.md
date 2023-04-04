@@ -1,4 +1,4 @@
-##Jak uruchomić projekt?
+Jak uruchomić projekt?
 
 1) composer install
 2) Ustaw konfigurację bazy danych w  pliku env.
